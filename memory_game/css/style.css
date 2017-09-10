@@ -20,7 +20,7 @@ nav{
 }
 
 a {
-	/*text-decoration: none;*/
+	text-decoration: none;
 	font-family: "Raleway", sans-serif;
 	color: white;
 	letter-spacing: 1px;
