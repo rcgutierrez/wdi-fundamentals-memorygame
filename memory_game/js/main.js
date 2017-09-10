@@ -34,6 +34,8 @@ document.getElementById('counter').textContent = wins;
 //Sets listener to thank donators
 var thanks = function() {
 	alert("Aww, you shouldn't have!");
+	alert("But I do take cash :)");
+	alert("Only half joking...");
 }
 document.getElementById('donate').addEventListener('click', thanks);
 
