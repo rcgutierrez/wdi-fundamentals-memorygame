@@ -89,14 +89,20 @@ var flipCard = function(){
 
 		//Prevents function from executing for first pair after match
 		if(cardsInPlay.length === 3){
-			if(cardsInPlay[2] === cardsInPlay[0] || cardsInPlay[2] === cardsInPlay[1] && suitsInPlay[2] === suitsInPlay[0] || suitsInPlay[2] === suitsInPlay[1]){
+			if((cardsInPlay[2] === cardsInPlay[0] || cardsInPlay[2] === cardsInPlay[1]) && (suitsInPlay[2] === suitsInPlay[0] || suitsInPlay[2] === suitsInPlay[1])){
 				cardsInPlay.pop();
 				suitsInPlay.pop();
 				return;
 				
 			}
 
-		};  
+		};
+		//Exits loop if more than four elements in cardsInPlay array
+		if(cardsInPlay.length === 5){
+			cardsInPlay.pop();
+			suitsInPlay.pop();
+			return
+		}
 
 		//For second pair found 
 		if(cardsInPlay.length === 4){
@@ -139,25 +145,30 @@ var flipCard = function(){
 var createBoard = function() {
 
 	//Counters for the cards left to choose from in 'for' loop
-	var queensAvailable = 2;
-	var kingsAvailable = 2;
-	var cardsAvailable = (queensAvailable + kingsAvailable) - 1;
+	var cardsAvailable = [0, 1, 2, 3];
 
 	for(var i = 0; i < cards.length; i++){
 
-		//Generates random number to choose card from 'cards' object
-		var cardChosen = Math.floor(Math.random()*(cardsAvailable));
-		if (cardChosen === 0 || cardChosen === 1) {
-			queensAvailable - 1;
-		}else{
-			kingsAvailable - 1;
-		};
+		//Generates random number to choose position from 'cardsAvailable' array
+		var positionChosen = Math.floor(Math.random() * cardsAvailable.length);
+
+		//Assigns variable to the value in the random position
+		var cardChosen = cardsAvailable[positionChosen];
+		
 
 		var cardElement = document.createElement('img');
 		cardElement.setAttribute('src', 'images/back.png');
-		cardElement.setAttribute('data-id', i);
+		cardElement.setAttribute('data-id', cardChosen);
 		cardElement.addEventListener('click', flipCard);
 		document.getElementById('game-board').appendChild(cardElement);
+		console.log(cardsAvailable[cardChosen]);
+		
+		//Removes cardChosen from cardsAvailable array
+		var index = cardsAvailable.indexOf(cardChosen);
+		if(index > -1){
+			cardsAvailable.splice(index, 1);
+		}
+
 	}
 };
 
@@ -165,6 +176,7 @@ var createBoard = function() {
 createBoard();
 
 var resetAllCards = function() {
+
 	//Deletes div content, clears arrays, creates another board
 	document.getElementById('game-board').innerHTML = '';
 	cardsInPlay = [];
