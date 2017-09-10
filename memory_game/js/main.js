@@ -24,8 +24,15 @@ var cards = [
 ];
 
 var cardsInPlay = [];
-var suitsInPlay = []
+var suitsInPlay = [];
+var wins = 0;
+document.getElementById('counter').textContent = wins;
 
+
+var thanks = function() {
+	alert("Aww, you shouldn't have!");
+}
+document.getElementById('donate').addEventListener('click', thanks);
 
 
 var flipCard = function(){
@@ -69,8 +76,17 @@ var flipCard = function(){
 		};
 
 		if(cardsInPlay.length === 4){
+			if(suitsInPlay[2] === suitsInPlay[3] && cardsInPlay[2] === cardsInPlay[3]){
+				cardsInPlay.pop();
+				suitsInPlay.pop();
+				resetCard();
+				return;
+			}
+
 			if(cardsInPlay[2] === cardsInPlay[3]){
 				alert("You found a match!");
+				wins = wins + 1;
+				document.getElementById('counter').textContent = wins;
 				
 			}else{
 				alert("Sorry, try again!");
@@ -84,14 +100,15 @@ var flipCard = function(){
 
 	console.log(cardsInPlay);
 	console.log(suitsInPlay);
+	console.log(wins)
 	
 	this.setAttribute('src', finalImage);
 
 };
 
 var createBoard = function() {
-	var queensAvailable = 2;
-	var kingsAvailable = 2;
+	// var queensAvailable = 2;
+	// var kingsAvailable = 2;
 
 	for(var i = 0; i < cards.length; i++){
 
@@ -105,4 +122,13 @@ var createBoard = function() {
 
 
 createBoard();
+
+var resetAllCards = function() {
+	document.getElementById('game-board').innerHTML = '';
+	cardsInPlay = [];
+	suitsInPlay = [];
+	createBoard();
+}
+
+document.getElementById('reset').addEventListener('click', resetAllCards);
 

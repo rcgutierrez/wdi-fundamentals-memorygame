@@ -101,3 +101,11 @@ footer{
 	color: #f15b31;
 	font-weight: 700;
 }
+
+h4 {
+	margin-top: 0;
+}
+
+h6 {
+	margin-bottom: 0;
+}
