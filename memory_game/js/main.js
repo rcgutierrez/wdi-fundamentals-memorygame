@@ -85,6 +85,17 @@ var flipCard = function(){
 		
 		};
 
+		//Prevents function from executing for first pair after match
+		if(cardsInPlay.length === 3){
+			if(cardsInPlay[2] === cardsInPlay[0] || cardsInPlay[2] === cardsInPlay[1] && suitsInPlay[2] === suitsInPlay[0] || suitsInPlay[2] === suitsInPlay[1]){
+				cardsInPlay.pop();
+				suitsInPlay.pop();
+				return;
+				
+			}
+
+		};  
+
 		//For second pair found 
 		if(cardsInPlay.length === 4){
 
